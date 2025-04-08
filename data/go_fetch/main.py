@@ -4,34 +4,6 @@ import csv
 from urllib.parse import urlencode
 from api.exchange_flows import reserve
 
-def ping():
-    url = "https://api.datasource.cybotrade.rs/cryptoquant/btc/status/entity-list"
-    
-    headers = {
-        "accept": "application/json",
-        "X-API-KEY": "iheM86n8mn8vC3vjOE444vlVTP5sTuBb71FJuVKQc5UqdIBn"
-    }
-    
-    query_params = {
-        "type": "exchange",
-        "start_time": 1735689600,
-        "end_time": 1738368000,
-        "limit": 1
-    }
-    
-    # Build the URL with query parameters
-    full_url = f"{url}?{urlencode(query_params)}"
-    
-    try:
-        # Make the GET request
-        response = requests.get(full_url, headers=headers)
-        response.raise_for_status()  # Raise an exception for bad status codes
-        
-        # Print the response
-        print(response.text)
-    except requests.exceptions.RequestException as e:
-        print(f"Error making request: {e}")
-
 def main():
     # Call the ping function
     # ping()
@@ -47,7 +19,7 @@ def main():
         data = test
         
         # Write to CSV file
-        with open('data.csv', 'a', newline='') as csvfile:
+        with open('BTC-ExchangeFlows-Reserve.csv', 'a', newline='') as csvfile:
             # Get the fieldnames from the first item in the data
             if isinstance(data, dict) and 'data' in data and data['data']:
                 fieldnames = data['data'][0].keys()
@@ -66,7 +38,7 @@ def main():
             else:
                 writer.writerow(data)
                 
-        print("Data has been written to data.csv")
+        print("Data has been written to BTC-ExchangeFlows-Reserve.csv")
     except Exception as e:
         print(f"Error processing data: {e}")
         return
