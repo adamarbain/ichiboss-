@@ -12,7 +12,7 @@ def market_price_usd():
     
     query_params = {
         "symbol": "gbtc",
-        "window": "day",
+        "window": "hour",
         "limit": 10000
     }
     
