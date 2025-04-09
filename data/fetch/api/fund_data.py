@@ -1,13 +1,18 @@
 import requests
 import json
 from urllib.parse import urlencode
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 def market_price_usd():
     url = "https://api.datasource.cybotrade.rs/cryptoquant/btc/fund-data/market-price-usd"
     
     headers = {
         "accept": "application/json",
-        "X-API-KEY": "iheM86n8mn8vC3vjOE444vlVTP5sTuBb71FJuVKQc5UqdIBn"
+        "X-API-KEY": os.getenv("API_KEY")
     }
     
     query_params = {
