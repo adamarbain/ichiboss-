@@ -16,9 +16,14 @@ class PerformanceMetrics:
         portfolio_value = self.initial_capital
         daily_values = []
         
-        for date in self.market_data.index:
+        for timestamp in self.market_data.index:
+            # Convert market data timestamp to datetime (from UNIX ms)
+            date = pd.to_datetime(timestamp, unit='ms')
+            
             # Get trades for this date
-            daily_trades = self.trade_history[self.trade_history['timestamp'].dt.date == date.date()]
+            daily_trades = self.trade_history[
+            pd.to_datetime(self.trade_history['timestamp'], unit='ms').dt.date == date.date()
+            ]
             
             # Calculate P&L from trades
             trade_pnl = 0
