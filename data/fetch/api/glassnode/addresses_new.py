@@ -6,18 +6,18 @@ from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
-def addresses_active():
-    url = "https://api.datasource.cybotrade.rs/glassnode/addresses/active_count"
+def new():
+    url = "https://api.datasource.cybotrade.rs/glassnode/addresses/new_non_zero_count"
     
     headers = {
         "accept": "application/json",
         "X-API-KEY": os.getenv("API_KEY")
     }
     query_params = {
-        "a": "BTC",
+       "a": "BTC",
         "i": "24h",
-        "start_time": 1270815381000,
-        "limit": 2000   
+        "start_time": 1430697600000, # Start time in milliseconds since epoch 4 May 2015 00:00:00
+        "limit": 10000   
     }
     
     # Build the URL with query parameters
@@ -38,6 +38,6 @@ def addresses_active():
         return None
 
 if __name__ == "__main__":
-    result = addresses_active()
+    result = new()
     if result:
         print(json.dumps(result, indent=2)) 
