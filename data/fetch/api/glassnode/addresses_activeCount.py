@@ -15,9 +15,9 @@ def addresses_active():
     }
     query_params = {
         "a": "BTC",
-        "i": "1h",
-        "start_time": 1270815381000,
-        "limit": 2000   
+        "i": "24h",
+        "start_time": 1430697600000, # Start time in milliseconds since epoch 4 May 2015 00:00:00
+        "limit": 5000   
     }
     
     # Build the URL with query parameters
