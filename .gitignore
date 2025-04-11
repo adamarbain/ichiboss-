@@ -3,3 +3,6 @@
 .venv
 .ipynb_checkpoints
 py-env
+data/fetch/api/cryptoquant/__pycache__
+data/fetch/api/__pycache__
+data/fetch/api/glassnode/__pycache__
