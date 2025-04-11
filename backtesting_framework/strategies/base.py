@@ -7,6 +7,10 @@ class Strategy(ABC):
         self.params = params or {}
         self.positions = pd.DataFrame()
         self.signals = pd.DataFrame()
+
+
+    def next(self):
+        pass
         
     @abstractmethod
     def generate_signals(self, data: pd.DataFrame) -> pd.DataFrame:
