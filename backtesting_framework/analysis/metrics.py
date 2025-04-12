@@ -45,12 +45,22 @@ class PerformanceMetrics:
             # Process trades for the day
             for _, trade in daily_trades.iterrows():
                 if trade['type'] == 'buy':
-                    portfolio_value -= trade['quantity'] * trade['price']
-                    portfolio_holdings += trade['quantity']
+                    cost = trade['quantity'] * trade['price']
+                    if portfolio_value >= cost:
+                        portfolio_value -= cost
+                        portfolio_holdings += trade['quantity']
+                    else:
+                        # Not enough cash to buy - skip or partial buy
+                        pass
                 else:  # sell
-                    portfolio_value += trade['quantity'] * trade['price']
-                    portfolio_holdings -= trade['quantity']
-            
+                    if portfolio_holdings >= trade['quantity']:
+                        portfolio_value += trade['quantity'] * trade['price']
+                        portfolio_holdings -= trade['quantity']
+                    else:
+                        # Not enough holdings to sell - skip or partial sell
+                        pass
+                    
+            # After handling trades
             # Find the closest market data point for this date
             try:
                 closest_date = self.market_data.index[
@@ -115,18 +125,49 @@ class PerformanceMetrics:
         winning_trades = len(trades[trades['pnl'] > 0])
         return winning_trades / len(trades)
     
+    def calculate_average_trade_return(self) -> float:
+        """Calculate the average return per trade"""
+        if len(self.trade_history) == 0:
+            return 0.0
+            
+        # Pair buy and sell trades to calculate profit per round-trip trade
+        buys = self.trade_history[self.trade_history['type'] == 'buy']
+        sells = self.trade_history[self.trade_history['type'] == 'sell']
+        
+        if len(buys) == 0 or len(sells) == 0:
+            return 0.0
+            
+        # Calculate total cost and proceeds
+        total_buy_cost = (buys['quantity'] * buys['price']).sum()
+        total_sell_proceeds = (sells['quantity'] * sells['price']).sum()
+        
+        # Total profit across all trades
+        total_profit = total_sell_proceeds - total_buy_cost
+        
+        # Number of complete trades (buy+sell pairs)
+        # In a simple strategy, this is typically the number of sells
+        num_complete_trades = len(sells)
+        
+        if num_complete_trades > 0:
+            return total_profit / num_complete_trades
+        else:
+            return 0.0
+    
     def calculate_metrics(self) -> Dict[str, float]:
         """Calculate all performance metrics"""
         returns = self.calculate_returns()
         total_return = float((1 + returns).prod() - 1) if len(returns) > 0 else 0.0
         
+        # Calculate average trade return correctly
+        avg_trade_return = self.calculate_average_trade_return()
+
         metrics = {
             'total_return': total_return,
             'sharpe_ratio': self.calculate_sharpe_ratio(),
             'max_drawdown': self.calculate_max_drawdown(),
             'win_rate': self.calculate_win_rate(),
             'total_trades': len(self.trade_history),
-            'avg_trade_return': float(self.trade_history['value'].mean()) if len(self.trade_history) > 0 else 0.0
+            'avg_trade_return': avg_trade_return  # Fixed calculation
         }
         
         # Ensure all values are finite
