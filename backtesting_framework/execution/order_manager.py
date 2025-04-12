@@ -9,7 +9,7 @@ class Order:
         self.order_type = order_type  # 'buy' or 'sell'
         self.quantity = quantity
         self.price = price
-        self.timestamp = timestamp
+        self.timestamp = timestamp  # Already in Unix milliseconds
         self.status = 'pending'  # pending, filled, cancelled
         self.filled_price = None
         self.filled_quantity = 0
@@ -21,14 +21,19 @@ class OrderManager:
         self.trade_history: List[Dict] = []
         
     def create_order(self, symbol: str, order_type: str, 
-                    quantity: float, price: float) -> Order:
+                    quantity: float, price: float, timestamp: Optional[int] = None) -> Order:
         """Create a new order"""
+        if timestamp is None:
+            timestamp = datetime.now()
+        else:
+            timestamp = datetime.fromtimestamp(timestamp / 1000)  # Convert Unix ms to datetime
+            
         order = Order(
             symbol=symbol,
-            order_type=order_type,
+            order_type=order_type, 
             quantity=quantity,
             price=price,
-            timestamp=datetime.now()
+            timestamp=timestamp
         )
         self.orders.append(order)
         return order
