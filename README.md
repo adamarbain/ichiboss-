@@ -1,141 +1,128 @@
-# UM-Hackathon 2025
+<div align="center">
 
-## Domain details
+# ICHIBOSS-
 
-> - will add later
+*Empower your trading strategies with data-driven insights.*
 
-## Preleminary Round
+![last-commit](https://img.shields.io/github/last-commit/adamarbain/ichiboss-?style=flat&logo=git&logoColor=white&color=0080ff)
+![repo-top-language](https://img.shields.io/github/languages/top/adamarbain/ichiboss-?style=flat&color=0080ff)
+![repo-language-count](https://img.shields.io/github/languages/count/adamarbain/ichiboss-?style=flat&color=0080ff)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange?logo=Jupyter&style=flat)
 
-### 🎯 Objectives for Preliminary Round:
+*Built with the tools and technologies:*
 
-1. Produce a functional ML model (with HMM or NLP)
-2. Build a Streamlit prototype demonstrating the model
-3. Prepare a clear, engaging presentation
+![NumPy](https://img.shields.io/badge/NumPy-013243.svg?style=flat&logo=NumPy&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white)
+![pandas](https://img.shields.io/badge/pandas-150458.svg?style=flat&logo=pandas&logoColor=white)
 
-### 📅 Timeline and Task Distribution (5 Days)
+</div>
 
-#### 🚩 Day 1: Project Kickoff and Data Exploration
+---
 
-All members (Team Members 1-5):
+## Table of Contents
 
-Morning:
+- [Overview](#overview)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Environtment Variables](#environtment-variables)
+  - [Usage](#usage)
+    - [Data Fetching](#data-fetching)
+    - [Backtesting](#backtesting)
+- [License](#license)
 
-- Understand clearly the problem statement, success criteria, and data sources.
-- Set up collaborative environment (GitHub/GitLab repository, communication channels).
+---
 
-Afternoon:
+## Overview
 
-- Collect and preprocess initial data from CryptoQuant, Glassnode, Coinglass.
-- Explore the data thoroughly, identify initial potential market indicators or signals.
+**ichiboss** is a powerful developer tool designed for cryptocurrency trading strategy evaluation and backtesting. It empowers developers to analyze and refine their trading algorithms using historical market data.
 
-Evening (brief check-in):
+**Why ichiboss?**
 
-- Share insights, finalize data exploration findings.
+This project aims to streamline the process of testing and optimizing trading strategies. The core features include:
 
-#### 🚩 Day 2: Model Building & Initial Backtesting
+- 📊 **Backtesting Framework:** Evaluate trading strategies against historical data for informed decision-making.
+- 🧪 **Interactive Notebooks:** Experiment with data analysis and model training in a user-friendly environment.
+- 📈 **Performance Metrics Evaluation:** Assess the effectiveness of strategies with comprehensive performance reports.
+- 🔗 **Integration with Data Processing Libraries:** Leverage Pandas and NumPy for efficient data manipulation and analysis.
+- 📉 **Specialized Strategies:** Utilize network metrics to identify optimal trading signals tailored for cryptocurrency markets.
 
-Team Member 1 & 2:
+---
 
-- Develop initial ML model (HMM-based or NLP-based for sentiment) for generating trading signals.
+## Getting Started
 
-Team Member 3:
+### Prerequisites
 
-- Set up robust backtesting infrastructure for evaluating strategies (Backtrader, custom scripts).
+This project requires the following dependencies:
 
-Team Member 4 & 5:
+- **Programming Language:** Python
+- **Package Manager:** Pip
 
-- Refine data preprocessing pipelines, automate data collection/update process.
-- Assist in feature engineering, supporting Team Members 1-3.
+### Installation
 
-End of Day Deliverable:
+Build **ichiboss-** from the source and install dependencies:
 
-- Simple baseline model tested and ready for refinement.
+```bash
+# Clone the repository
+git clone https://github.com/adamarbain/ichiboss-
 
-#### 🚩 Day 3: Model Optimization and Trading Strategy Refinement
+# Navigate to the project directory
+cd ichiboss-
 
-Team Member 1 & 2:
+# Install dependencies
+pip install -r requirements.txt model/requirements.txt backtesting_framework/requirements.txt
 
-- Optimize ML model parameters (hyperparameter tuning, cross-validation).
-- Improve model’s signal generation accuracy (target Sharpe Ratio ≥ 1.8, MDD ≥ -40%).
+```
 
-Team Member 3:
+---
 
-- Run extensive backtests on multiple years of data, document performance clearly.
+## Environtment Variables
 
-Team Member 4 & 5:
+To use the Cybotrade APIs, you need to set up environment variables for your API keys. Create a `.env` file in the root directory of the project and add the following lines:
 
-- Fine-tune strategy rules (when to enter/exit trades, risk management).
-- Validate trading frequency requirement (≥ 3% signals per data row).
+```bash
+# Cybotrade API Key
+X-API-KEY=your_cybotrade_api_key
+```
 
-End of Day Deliverable:
+---
 
-- Finalized ML model & strategy meeting preliminary round performance criteria.
+## Usage
 
-#### 🚩 Day 4: Start Prototype Development and Presentation Preparation
+### Data Fetching
 
-- Team Member 4 & 5: (Prototype and Presentation Team)
-- Team Member 4:
-- Initiate Streamlit prototype setup.
-- Build front-end visuals (charts, model outputs, strategy performance visuals).
+The data fetching module is designed to retrieve historical cryptocurrency data from various sources. It supports multiple exchanges and allows users to specify the desired time frame and granularity of the data.
 
-Team Member 5:
+Run the notebook to fetch and preprocess data using CryptoQuant and Glassnode APIs:
 
-- Prepare preliminary slide deck (problem statement, innovation, methodology).
-- Draft narrative (introduction, model innovation, impact potential).
+```bash
+jupyter notebook data/fetch/main.ipynb 
+```
 
-Team Member 1, 2 & 3: (Model Fine-Tuning Team)
+#### API Sources :
+- "data/fetch/api/cryptoquant" 
+- "data/fetch/api/glassnode"
 
-- Run further performance optimization and forward tests on unseen data.
-- Thoroughly document methodology, assumptions, validation processes.
-- Ensure scalability, clarity, and reproducibility of the ML pipeline.
 
-Evening Check-in:
+### Backtesting
+Backtesting is a crucial step in evaluating the performance of trading strategies. The backtesting framework allows users to simulate trades based on historical data and assess the effectiveness of their strategies.
 
-- Discuss progress, ensure alignment between model, prototype, and slides.
+To run the backtesting framework, execute the following command:
 
-#### 🚩 Day 5: Prototype Finalization, Presentation Polishing, and Submission
+```bash
+jupyter notebook backtesting_framework/main.ipynb 
+```
 
-Team Member 4 & 5 (Prototype and Presentation Team):
+This will evaluate strategies using historical data inside the backtesting_framework/ module.
 
-Morning:
+---
 
-- Finalize Streamlit app (visual polish, clear user interface, deploy/share prototype link).
+## License
 
-Afternoon:
+This project is licensed under the **MIT License**.  
+You are free to use, modify, and distribute this software.  
+See the [LICENSE](LICENSE) file for full license text.
 
-- Polish presentation deck (clear, concise, visually appealing).
-- Practice pitch narrative clearly highlighting innovation, methodology, impact, and results.
+---
 
-Evening:
-
-- Integrate latest model results into presentation.
-
-Team Member 1, 2 & 3 (Model Fine-Tuning Team):
-
-Morning:
-
-- Final robustness checks on the ML model and documented backtests.
-
-Afternoon:
-
-- Support prototype team by providing clearly visualized results/data insights.
-- Confirm all documentation (data preprocessing, model methodology, backtest validation) is thorough and ready.
-
-Evening:
-
-- Review and approve final model and documentation.
-- All members (Final hour):
-
-Final combined team meeting.
-
-- Conduct practice pitch (simulate judging scenario).
-- Confirm final deliverables ready:
-- ML Model (GitHub Repository) clearly documented and reproducible.
-- Streamlit Prototype fully functional and visually appealing.
-- Slide Presentation clearly structured and compelling.
-
-### 🚀 Final Preliminary Round Deliverables:
-
-- ML Model & Trading Strategy (GitHub repository)
-- Functional Streamlit Prototype (hosted and accessible online)
-- Concise, Engaging Presentation highlighting the innovation, impact, and success of your solution
+[⬆ Return to top](#ICHIBOSS-)

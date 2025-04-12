@@ -6,3 +6,8 @@ py-env
 data/fetch/api/cryptoquant/__pycache__
 data/fetch/api/__pycache__
 data/fetch/api/glassnode/__pycache__
+backtesting_framework/__pycache__
+backtesting_framework/analysis/__pycache__
+backtesting_framework/strategies/__pycache__
+backtesting_framework/data/__pycache__
+backtesting_framework/execution/__pycache__
