@@ -1,6 +1,6 @@
 <div align="center">
 
-# ICHIBOSS-
+# ICHIBOSS🐦
 
 *Empower your trading strategies with data-driven insights.*
 
