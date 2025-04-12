@@ -13,6 +13,7 @@ class BacktestingEngine:
         self.order_manager = OrderManager()
         self.initial_capital = initial_capital
         self.current_capital = initial_capital
+        self.current_position = 0  # Track current position in BTC
         
     def run_backtest(self, strategy: Strategy, 
                     start_timestamp: int = None,
@@ -48,33 +49,55 @@ class BacktestingEngine:
                     print(f"\nTimestamp: {timestamp}")
                     print(f"Signal: {row['signal']}")
                     print(f"Current Capital: ${self.current_capital:,.2f}")
+                    print(f"Current Position: {self.current_position} BTC")
                     
-                    # Calculate position size
-                    position = strategy.calculate_position_size(
-                    pd.DataFrame([row]), self.current_capital
-                    )
-                    print(f"Calculated Position Size: {position['position'].iloc[0]}")
+                    price = features.loc[timestamp, 'price_usd_close']
                     
-                    # Create and execute order
-                    order = self.order_manager.create_order(
-                    symbol='BTC',
-                    order_type='buy' if row['signal'] > 0 else 'sell',
-                    quantity=abs(position['position'].iloc[0]),
-                    price=features.loc[timestamp, 'price_usd_close']
-                    )
-                    print(f"Order Type: {order.order_type}")
-                    print(f"Order Quantity: {order.quantity}")
-                    print(f"Order Price: ${features.loc[timestamp, 'price_usd_close']:,.2f}")
-                    
-                    self.order_manager.execute_order(order, features.loc[timestamp, 'price_usd_close'])
-                    
-                    # Update capital
-                    if row['signal'] > 0:  # buy
-                        self.current_capital -= order.quantity * features.loc[timestamp, 'price_usd_close']
-                    else:  # sell
-                        self.current_capital += order.quantity * features.loc[timestamp, 'price_usd_close']
+                    if row['signal'] > 0:  # Buy signal
+                        # Calculate position size based on available capital
+                        position = strategy.calculate_position_size(
+                            pd.DataFrame([row]), self.current_capital
+                        )
+                        quantity = abs(position['position'].iloc[0])
                         
-                    print(f"Updated Capital: ${self.current_capital:,.2f}")
+                        if quantity > 0:
+                            order = self.order_manager.create_order(
+                                symbol='BTC',
+                                order_type='buy',
+                                quantity=quantity,
+                                price=price,
+                                timestamp=timestamp
+                            )
+                            
+                    else:  # Sell signal
+                        # Sell from existing position
+                        quantity = self.current_position  # Sell entire position
+                        
+                        if quantity > 0:
+                            order = self.order_manager.create_order(
+                                symbol='BTC',
+                                order_type='sell',
+                                quantity=quantity,
+                                price=price
+                            )
+                    
+                    if quantity > 0:
+                        print(f"Order Type: {order.order_type}")
+                        print(f"Order Quantity: {order.quantity}")
+                        print(f"Order Price: ${price:,.2f}")
+                        
+                        self.order_manager.execute_order(order, price)
+                        
+                        # Update capital and position
+                        if order.order_type == 'buy':
+                            self.current_capital -= order.quantity * price
+                            self.current_position += order.quantity
+                        else:  # sell
+                            self.current_capital += order.quantity * price
+                            self.current_position -= order.quantity
+                            
+                        print(f"Updated Capital: ${self.current_capital:,.2f}")
+                        print(f"Updated Position: {self.current_position} BTC")
                     
                 except KeyError as e:
                     print(f"Warning: Missing data for timestamp {timestamp}: {e}")
@@ -92,4 +115,4 @@ class BacktestingEngine:
             'report': metrics.generate_report(),
             'trade_history': self.order_manager.get_trade_history(),
             'final_capital': self.current_capital
-        } 
+        }

@@ -41,12 +41,12 @@ class DataLoader:
             raise
             
         # Display general information about the market data
-        print("\nMarket Data Info:")
-        print(market_data.info())
-        print("\nMarket Data Description:")
-        print(market_data.describe())
+        # print("\nMarket Data Info:")
+        # print(market_data.info())
+        # print("\nMarket Data Description:")
+        # print(market_data.describe())
             
-        print(market_data.head())    
+        # print(market_data.head())    
         return market_data
     
     def load_network_data(self, symbol: str = 'BTC') -> Dict[str, pd.DataFrame]:
@@ -69,14 +69,14 @@ class DataLoader:
                 raise
             
         # Display general information about the network data
-        print("\nNetwork Data Info:")
-        for metric, df in network_data.items():
-            print(f"\n{metric} Data Info:")
-            print(df.info())
-            print(f"\n{metric} Data Description:")
-            print(df.describe())
-            print(f"\n{metric} Data Head:")
-            print(df.head())
+        # print("\nNetwork Data Info:")
+        # for metric, df in network_data.items():
+        #     print(f"\n{metric} Data Info:")
+        #     print(df.info())
+        #     print(f"\n{metric} Data Description:")
+        #     print(df.describe())
+        #     print(f"\n{metric} Data Head:")
+        #     print(df.head())
             
         return network_data
     
@@ -100,14 +100,14 @@ class DataLoader:
                 raise
             
         # Display general information about the miner data
-        print("\nMiner Data Info:")
-        for metric, df in miner_data.items():
-            print(f"\n{metric} Data Info:")
-            print(df.info())
-            print(f"\n{metric} Data Description:")
-            print(df.describe())
-            print(f"\n{metric} Data Head:")
-            print(df.head())
+        # print("\nMiner Data Info:")
+        # for metric, df in miner_data.items():
+        #     print(f"\n{metric} Data Info:")
+        #     print(df.info())
+        #     print(f"\n{metric} Data Description:")
+        #     print(df.describe())
+        #     print(f"\n{metric} Data Head:")
+        #     print(df.head())
             
         return miner_data
     
