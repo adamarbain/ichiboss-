@@ -78,7 +78,8 @@ class BacktestingEngine:
                                 symbol='BTC',
                                 order_type='sell',
                                 quantity=quantity,
-                                price=price
+                                price=price,
+                                timestamp=timestamp
                             )
                     
                     if quantity > 0:
