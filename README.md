@@ -29,6 +29,7 @@
   - [Usage](#usage)
     - [Data Fetching](#data-fetching)
     - [Backtesting](#backtesting)
+    - [Model - (Developing)](#model---developing)
 - [License](#license)
 
 ---
@@ -98,6 +99,8 @@ Run the notebook to fetch and preprocess data using CryptoQuant and Glassnode AP
 ```bash
 jupyter notebook data/fetch/main.ipynb 
 ```
+File path to `data/fetch/main.ipynb` : [Open Data Fetch Notebook](data/fetch/main.ipynb)
+
 
 #### API Sources :
 - "data/fetch/api/cryptoquant" 
@@ -112,8 +115,18 @@ To run the backtesting framework, execute the following command:
 ```bash
 jupyter notebook backtesting_framework/main.ipynb 
 ```
+File path to `backtesting_framework/main.ipynb` : [Open Backtesting Notebook](backtesting_framework/main.ipynb)
 
 This will evaluate strategies using historical data inside the backtesting_framework/ module.
+
+### Model - (Developing)
+**The model module is currently under development.** It will provide advanced machine learning and deep learning capabilities for predicting cryptocurrency price movements and optimizing trading strategies.
+To run the model module, execute the following command:
+
+```bash
+jupyter notebook model/first_model.ipynb 
+```
+File path to `model/first_model.ipynb` : [Open Model Notebook](model/first_model.ipynb)
 
 ---
 
